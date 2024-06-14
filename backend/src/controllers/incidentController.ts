@@ -1,9 +1,7 @@
-// backend/src/controllers/incidentController.ts
 import { Request, Response } from 'express';
 import Incident from '../models/Incident';
 
 interface ReportIncidentRequestBody {
-  institution: string;
   childName: string;
   details: string;
   signature: string;
@@ -11,11 +9,20 @@ interface ReportIncidentRequestBody {
   comments?: string;
 }
 
-export const reportIncident = async (req: Request<{}, {}, ReportIncidentRequestBody>, res: Response): Promise<void> => {
+interface SignIncidentRequestBody {
+  parentSignature: string;
+  parentSignatureType: 'handwritten' | 'typed';
+}
+
+interface AuthRequest extends Request {
+  institutionId?: string;
+}
+
+export const reportIncident = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { institution, childName, details, signature, signatureType, comments } = req.body;
+    const { childName, details, signature, signatureType, comments } = req.body;
     const newIncident = new Incident({
-      institution,
+      institution: req.institutionId,
       childName,
       details,
       signature,
@@ -37,7 +44,54 @@ export const reportIncident = async (req: Request<{}, {}, ReportIncidentRequestB
 export const getIncidents = async (req: Request, res: Response): Promise<void> => {
   try {
     const incidents = await Incident.find();
-    res.json(incidents);
+    res.status(200).json(incidents);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: 'An unknown error occurred' });
+    }
+  }
+};
+
+export const signIncident = async (
+  req: Request<{ id: string }, {}, SignIncidentRequestBody>,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const { parentSignature, parentSignatureType } = req.body;
+
+    const incident = await Incident.findById(id);
+    if (!incident) {
+      res.status(404).json({ message: 'Incident not found' });
+      return;
+    }
+
+    incident.parentSignature = parentSignature;
+    incident.parentSignatureType = parentSignatureType;
+    incident.signedByParent = true;
+    await incident.save();
+
+    res.status(200).json(incident);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({ message: error.message });
+    } else {
+      res.status(400).json({ message: 'An unknown error occurred' });
+    }
+  }
+};
+
+export const getIncidentById = async (req: Request<{ id: string }>, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const incident = await Incident.findById(id);
+    if (!incident) {
+      res.status(404).json({ message: 'Incident not found' });
+      return;
+    }
+    res.status(200).json(incident);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ message: error.message });

@@ -1,13 +1,22 @@
-// src/components/Home.tsx
 import React from 'react';
-import Typography from '@mui/material/Typography';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
+import { RootState } from '../app/store';
 
 export default function Home() {
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+
   return (
-    <div>
-      <Typography variant="h4" component="h2">
-        Welcome to the Educational App
+    <div className="p-4">
+      <Typography variant="h4" gutterBottom>
+        Welcome to the Edulogr
       </Typography>
+      {isAuthenticated && (
+        <Button variant="contained" color="primary" component={Link} to="/report-incident">
+          Report Incident
+        </Button>
+      )}
     </div>
   );
 }

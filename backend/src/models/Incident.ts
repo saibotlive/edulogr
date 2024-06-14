@@ -8,6 +8,9 @@ interface IIncident extends Document {
   status: string;
   signature: string;
   signatureType: 'handwritten' | 'typed';
+  parentSignature: string;
+  parentSignatureType: 'handwritten' | 'typed';
+  signedByParent: boolean;
   comments: string;
 }
 
@@ -19,6 +22,9 @@ const incidentSchema = new Schema<IIncident>({
   status: { type: String, required: true },
   signature: { type: String, required: true },
   signatureType: { type: String, required: true, enum: ['handwritten', 'typed'] },
+  parentSignature: { type: String, default: '' },
+  parentSignatureType: { type: String, enum: ['handwritten', 'typed'], default: 'typed' },
+  signedByParent: { type: Boolean, default: false },
   comments: { type: String },
 });
 

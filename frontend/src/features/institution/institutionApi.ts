@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { SERVER_URL } from '../../config';
 
 interface Institution {
   id: string;
@@ -7,17 +8,13 @@ interface Institution {
   password?: string;
 }
 
-const serverURL = import.meta.env.VITE_API_ENDPOINT;
-
-console.log('serverUrl', serverURL);
-
 export const institutionApi = createApi({
   reducerPath: 'institutionApi',
-  baseQuery: fetchBaseQuery({ baseUrl: `${serverURL}/` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${SERVER_URL}/api/institutions` }),
   endpoints: (builder) => ({
     registerInstitution: builder.mutation<Institution, Partial<Institution>>({
       query: (institution) => ({
-        url: '/api/institutions/register',
+        url: '/register',
         method: 'POST',
         body: institution,
       }),

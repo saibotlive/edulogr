@@ -1,25 +1,34 @@
-// src/App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import RegisterInstitution from './components/RegisterInstitution';
-import IncidentForm from './components/IncidentForm';
 import Container from '@mui/material/Container';
-import Home from './components/Home';
 import Navbar from './components/Navbar';
+import Home from './components/Home';
+import RegisterInstitution from './components/RegisterInstitution';
+import Login from './components/Login';
+import IncidentForm from './components/IncidentForm';
+import SignIncident from './components/SignIncident';
+import ProtectedRoute from './components/ProtectedRoute';
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Navbar />
-      <Container maxWidth="xl">
+      <Container maxWidth="sm">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterInstitution />} />
-          <Route path="/report-incident" element={<IncidentForm />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/report-incident"
+            element={
+              <ProtectedRoute>
+                <IncidentForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/sign-incident/:id" element={<SignIncident />} />
         </Routes>
       </Container>
     </Router>
   );
 }
-
-export default App;

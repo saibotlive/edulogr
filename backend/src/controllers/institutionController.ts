@@ -1,4 +1,3 @@
-// backend/src/controllers/institutionController.ts
 import { Request, Response } from 'express';
 import Institution from '../models/Institution';
 import bcrypt from 'bcryptjs';

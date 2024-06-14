@@ -20,7 +20,15 @@ export default function IncidentForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await addIncident({ ...formData, date: new Date(), status: 'reported' });
+    const response = await addIncident({ ...formData, status: 'reported' });
+    if ('data' in response) {
+      // Generate a link for the parent to sign the incident
+      const incidentId = response.data?._id; // Note the change here from `id` to `_id`
+      const parentLink = `${window.location.origin}/sign-incident/${incidentId}`;
+      alert(`Parent can sign the incident using this link: ${parentLink}`);
+    } else if ('error' in response) {
+      console.error('Failed to report incident:', response.error);
+    }
   };
 
   return (
