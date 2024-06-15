@@ -1,23 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Container from '@mui/material/Container';
-import Navbar from './components/Navbar';
 import Home from './components/Home';
-import RegisterInstitution from './components/RegisterInstitution';
-import Login from './components/Login';
 import IncidentForm from './components/IncidentForm';
 import SignIncident from './components/SignIncident';
+import RegisterInstitution from './components/RegisterInstitution';
+import Login from './components/Login';
+import GlobalSnackbar from './components/GlobalSnackbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import Layout from './components/Layout';
+import Statistics from './components/Statistics';
 
-export default function App() {
+const App = () => {
   return (
     <Router>
-      <Navbar />
-      <Container maxWidth="sm">
+      <GlobalSnackbar />
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<RegisterInstitution />} />
-          <Route path="/login" element={<Login />} />
           <Route
             path="/report-incident"
             element={
@@ -26,9 +25,28 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/sign-incident/:id" element={<SignIncident />} />
+          <Route
+            path="/sign-incident/:id"
+            element={
+              <ProtectedRoute>
+                <SignIncident />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/register" element={<RegisterInstitution />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/statistics"
+            element={
+              <ProtectedRoute>
+                <Statistics />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
-      </Container>
+      </Layout>
     </Router>
   );
-}
+};
+
+export default App;

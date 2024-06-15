@@ -1,32 +1,33 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-interface IIncident extends Document {
-  institution: Schema.Types.ObjectId;
+export interface IIncident extends Document {
+  institution: string;
   childName: string;
   details: string;
-  date: Date;
-  status: string;
   signature: string;
   signatureType: 'handwritten' | 'typed';
-  parentSignature: string;
-  parentSignatureType: 'handwritten' | 'typed';
-  signedByParent: boolean;
-  comments: string;
+  status: string;
+  comments?: string;
+  parentSignature?: string;
+  parentSignatureType?: 'handwritten' | 'typed';
+  signedByParent?: boolean;
+  screenshot?: string; // Add this field
+  date: Date;
 }
 
-const incidentSchema = new Schema<IIncident>({
-  institution: { type: Schema.Types.ObjectId, ref: 'Institution', required: true },
+const IncidentSchema: Schema = new Schema({
+  institution: { type: String, required: true },
   childName: { type: String, required: true },
   details: { type: String, required: true },
-  date: { type: Date, default: Date.now },
-  status: { type: String, required: true },
   signature: { type: String, required: true },
-  signatureType: { type: String, required: true, enum: ['handwritten', 'typed'] },
-  parentSignature: { type: String, default: '' },
-  parentSignatureType: { type: String, enum: ['handwritten', 'typed'], default: 'typed' },
-  signedByParent: { type: Boolean, default: false },
+  signatureType: { type: String, required: true },
+  status: { type: String, required: true },
   comments: { type: String },
+  parentSignature: { type: String },
+  parentSignatureType: { type: String },
+  signedByParent: { type: Boolean, default: false },
+  screenshot: { type: String }, // Add this field
+  date: { type: Date, default: Date.now },
 });
 
-const Incident = mongoose.model<IIncident>('Incident', incidentSchema);
-export default Incident;
+export default mongoose.model<IIncident>('Incident', IncidentSchema);

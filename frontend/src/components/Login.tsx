@@ -3,6 +3,7 @@ import { TextField, Button } from '@mui/material';
 import { useLoginInstitutionMutation } from '../features/institution/institutionApi';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { showSnackbar } from '../features/snackbar/snackbarSlice';
 import { loginSuccess } from '../features/auth/authSlice';
 
 interface LoginFormData {
@@ -23,10 +24,10 @@ export default function Login() {
       const { token } = response.data;
       localStorage.setItem('token', token);
       dispatch(loginSuccess(token));
+      dispatch(showSnackbar({ message: 'Logged in successfully!', severity: 'success' }));
       navigate('/');
     } else if ('error' in response) {
-      // Handle login error
-      console.error('Login failed:', response.error);
+      dispatch(showSnackbar({ message: 'Login failed.', severity: 'error' }));
     }
   };
 

@@ -1,6 +1,8 @@
 import React, { useState, FormEvent } from 'react';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Typography } from '@mui/material';
 import { useRegisterInstitutionMutation } from '../features/institution/institutionApi';
+import { useDispatch } from 'react-redux';
+import { showSnackbar } from '../features/snackbar/snackbarSlice';
 
 interface FormData {
   name: string;
@@ -11,16 +13,23 @@ interface FormData {
 export default function RegisterInstitution() {
   const [formData, setFormData] = useState<FormData>({ name: '', email: '', password: '' });
   const [registerInstitution, { isLoading }] = useRegisterInstitutionMutation();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await registerInstitution(formData);
+    const response = await registerInstitution(formData);
+    if ('data' in response) {
+      dispatch(showSnackbar({ message: 'Institution registered successfully!', severity: 'success' }));
+    } else if ('error' in response) {
+      dispatch(showSnackbar({ message: 'Failed to register institution.', severity: 'error' }));
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
+      <Typography variant="h6">Register Institution</Typography>
       <TextField
-        label="School Name"
+        label="Name"
         variant="outlined"
         fullWidth
         margin="normal"
@@ -29,7 +38,6 @@ export default function RegisterInstitution() {
       />
       <TextField
         label="Email"
-        type="email"
         variant="outlined"
         fullWidth
         margin="normal"
@@ -38,10 +46,10 @@ export default function RegisterInstitution() {
       />
       <TextField
         label="Password"
-        type="password"
         variant="outlined"
         fullWidth
         margin="normal"
+        type="password"
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
