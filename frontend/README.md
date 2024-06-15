@@ -1,30 +1,94 @@
-# React + TypeScript + Vite
+# Frontend - Edulogr
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This is the frontend part of the Edulogr. It is built using React, TypeScript, Redux Toolkit, RTK Query, Material-UI, and Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Setup
 
-## Expanding the ESLint configuration
+1. **Clone the repository:**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+   ```bash
+   git clone https://github.com/your-username/incident-reporting-system.git
+   cd incident-reporting-system/frontend
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+2. **Install dependencies:**
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Build for production:**
+
+   ```bash
+   npm run build
+   ```
+
+5. **Run production build:**
+   ```bash
+   npm run serve
+   ```
+
+## Available Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the app for production.
+- `npm run serve`: Serves the production build.
+- `npm run lint`: Runs ESLint for code quality.
+- `npm run test`: Runs tests.
+
+## Folder Structure
+
+```
+frontend/
+├── public/                 # Public assets
+├── src/
+│   ├── app/                # Redux store configuration
+│   ├── components/         # React components
+│   ├── features/           # Redux slices and APIs
+│   ├── pages/              # Page components
+│   ├── styles/             # CSS and Tailwind configuration
+│   ├── App.tsx             # Main App component
+│   ├── index.tsx           # Entry point
+│   └── ...                 # Other files
+├── tailwind.config.js      # Tailwind CSS configuration
+├── postcss.config.js       # PostCSS configuration
+├── tsconfig.json           # TypeScript configuration
+├── package.json            # Project metadata and dependencies
+└── README.md               # This file
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Environment Variables
+
+Create a `.env` file in the root of the `frontend` directory and add the following environment variables:
+
+```
+REACT_APP_SERVER_URL=http://localhost:5000
+```
+
+## Important Libraries
+
+- **React**: JavaScript library for building user interfaces.
+- **TypeScript**: Typed superset of JavaScript.
+- **Redux Toolkit**: State management library.
+- **RTK Query**: Data fetching and caching library.
+- **Material-UI**: React components for faster and easier web development.
+- **Tailwind CSS**: Utility-first CSS framework.
+
+## Learn More
+
+To learn more about the frameworks and libraries used in this project, check out the following resources:
+
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Redux Toolkit Documentation](https://redux-toolkit.js.org/introduction/getting-started)
+- [RTK Query Documentation](https://redux-toolkit.js.org/rtk-query/overview)
+- [Material-UI Documentation](https://mui.com/getting-started/usage/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)

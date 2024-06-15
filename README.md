@@ -1,6 +1,6 @@
 # EduLogr (WIP)
 
-EduLogr is a web application I am currently developing for nurseries and schools to log and manage incidents in real-time. The application will allow staff to record incidents, and parents to sign forms electronically. In the future, the application will also expand and provide functionality for managing attendance, training sessions, and invoices.
+EduLogr is a web application I am currently developing for local nursery school to log and manage incidents in real-time. The application will allow staff to record incidents, and parents to sign forms electronically. In the future, the application will also expand and provide functionality for managing attendance, training sessions, and invoices.
 
 ## Features
 

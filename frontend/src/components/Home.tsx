@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="p-4">
       <Typography variant="h4" gutterBottom>
-        Welcome to the Edulogr
+        Welcome to Edulogr
       </Typography>
       {isAuthenticated && (
         <Button variant="contained" color="primary" component={Link} to="/report-incident">
