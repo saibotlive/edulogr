@@ -6,7 +6,7 @@ interface SnackbarOptions {
   severity: 'success' | 'error' | 'info' | 'warning';
 }
 
-export function useSnackbar() {
+function useSnackbar() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarOptions, setSnackbarOptions] = useState<SnackbarOptions>({ message: '', severity: 'success' });
 
@@ -29,3 +29,5 @@ export function useSnackbar() {
 
   return { showSnackbar, SnackbarComponent };
 }
+
+export default useSnackbar;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGetIncidentStatisticsQuery } from '../features/statistics/statisticsApi';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Typography, Box, CircularProgress } from '@mui/material';

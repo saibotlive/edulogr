@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { TextField, Button } from '@mui/material';
 import { useLoginInstitutionMutation } from '../features/institution/institutionApi';
 import { useDispatch } from 'react-redux';
@@ -20,7 +20,8 @@ export default function Login() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await loginInstitution(formData);
-    if ('data' in response) {
+
+    if (response.data && 'token' in response.data) {
       const { token } = response.data;
       localStorage.setItem('token', token);
       dispatch(loginSuccess(token));

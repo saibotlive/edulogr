@@ -3,7 +3,7 @@ import { RootState } from '../../app/store';
 import { SERVER_URL } from '../../config';
 
 interface Incident {
-  id: string;
+  _id: string;
   institutionId: string;
   childName: string;
   details: string;
@@ -21,14 +21,11 @@ interface ReportIncidentRequestBody {
   institution: string;
   childName: string;
   details: string;
+  date: Date;
+  status: string;
   signature: string;
   signatureType: 'handwritten' | 'typed';
   comments?: string;
-}
-
-interface SignIncidentRequestBody {
-  parentSignature: string;
-  parentSignatureType: 'handwritten' | 'typed';
 }
 
 // Custom baseQuery function to include the token in the headers

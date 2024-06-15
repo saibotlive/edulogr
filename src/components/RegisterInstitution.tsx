@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import { useState, FormEvent } from 'react';
 import { TextField, Button, Typography } from '@mui/material';
 import { useRegisterInstitutionMutation } from '../features/institution/institutionApi';
 import { useDispatch } from 'react-redux';

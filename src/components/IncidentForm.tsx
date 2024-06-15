@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useRef } from 'react';
+import { useState, FormEvent, useRef } from 'react';
 import {
   TextField,
   Button,
@@ -46,7 +46,7 @@ export default function IncidentForm() {
     if ('data' in response) {
       dispatch(showSnackbar({ message: 'Incident reported successfully!', severity: 'success' }));
       // Generate parent link
-      const incidentId = response.data._id;
+      const incidentId = response?.data?._id;
       const parentLinkUrl = `${window.location.origin}/sign-incident/${incidentId}`;
       setParentLink(parentLinkUrl);
     } else if ('error' in response) {

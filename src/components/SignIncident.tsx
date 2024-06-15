@@ -1,4 +1,4 @@
-import React, { useState, useRef, FormEvent } from 'react';
+import { useState, useRef, FormEvent } from 'react';
 import {
   TextField,
   Button,
@@ -36,7 +36,7 @@ export default function SignIncident() {
     }
 
     const response = await signIncident({
-      id,
+      id: id || '',
       parentSignature: signature,
       parentSignatureType: formData.parentSignatureType,
     });
@@ -86,7 +86,7 @@ export default function SignIncident() {
                 <img
                   src={incident.signature}
                   alt="Teacher's signature"
-                  className="max-w-xs w-32 h-auto border border-gray-500 rounded"
+                  className="w-32 h-auto max-w-xs border border-gray-500 rounded"
                 />
               </div>
             ) : (

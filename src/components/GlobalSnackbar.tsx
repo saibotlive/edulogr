@@ -1,4 +1,3 @@
-import React from 'react';
 import { Snackbar, Alert } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
