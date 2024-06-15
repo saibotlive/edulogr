@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import fs from 'fs';
 import Incident from '../models/Incident';
 
 interface ReportIncidentRequestBody {
@@ -13,7 +12,6 @@ interface ReportIncidentRequestBody {
 interface SignIncidentRequestBody {
   parentSignature: string;
   parentSignatureType: 'handwritten' | 'typed';
-  screenshot?: string;
 }
 
 interface AuthRequest extends Request {
@@ -80,7 +78,7 @@ export const signIncident = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-    const { parentSignature, parentSignatureType, screenshot } = req.body;
+    const { parentSignature, parentSignatureType } = req.body;
 
     const incident = await Incident.findById(id);
     if (!incident) {
@@ -96,10 +94,6 @@ export const signIncident = async (
     incident.parentSignature = parentSignature;
     incident.parentSignatureType = parentSignatureType;
     incident.signedByParent = true;
-
-    if (screenshot) {
-      incident.screenshot = screenshot;
-    }
 
     await incident.save();
 

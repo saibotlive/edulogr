@@ -11,7 +11,6 @@ export interface IIncident extends Document {
   parentSignature?: string;
   parentSignatureType?: 'handwritten' | 'typed';
   signedByParent?: boolean;
-  screenshot?: string; // Add this field
   date: Date;
 }
 
@@ -26,7 +25,6 @@ const IncidentSchema: Schema = new Schema({
   parentSignature: { type: String },
   parentSignatureType: { type: String },
   signedByParent: { type: Boolean, default: false },
-  screenshot: { type: String }, // Add this field
   date: { type: Date, default: Date.now },
 });
 
